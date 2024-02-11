@@ -1,0 +1,10 @@
+C:\Users\adama\OneDrive\Projects\Don't hit the corner\obj\Debug\Don't hit the corner.csproj.AssemblyReference.cache
+C:\Users\adama\OneDrive\Projects\Don't hit the corner\obj\Debug\Don't hit the corner.csproj.CoreCompileInputs.cache
+C:\Users\adama\OneDrive\Projects\Don't hit the corner\bin\Debug\Don't hit the corner.exe.config
+C:\Users\adama\OneDrive\Projects\Don't hit the corner\bin\Debug\Don't hit the corner.exe
+C:\Users\adama\OneDrive\Projects\Don't hit the corner\bin\Debug\Don't hit the corner.pdb
+C:\Users\adama\OneDrive\Projects\Don't hit the corner\obj\Debug\Don't hit the corner.exe
+C:\Users\adama\OneDrive\Projects\Don't hit the corner\obj\Debug\Don't hit the corner.pdb
+C:\Users\adama\OneDrive\Projects\Don't hit the corner\obj\Debug\Don't hit the corner.csproj.GenerateResource.cache
+C:\Users\adama\OneDrive\Projects\Don't hit the corner\obj\Debug\Don_t_hit_the_corner.Window.resources
+C:\Users\adama\OneDrive\Projects\Don't hit the corner\obj\Debug\Don_t_hit_the_corner.MainClass.resources
