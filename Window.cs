@@ -11,19 +11,28 @@ namespace Don_t_hit_the_corner
         private BufferedGraphicsContext context;
         private BufferedGraphics buffer;
         private readonly Ball ball;
+        private Rectangle wall;
+        private Timer wallTimer;
+        private int wallOpacity;
 
         public Window()
         {
             InitializeComponent();
             InitializeBuffer();
-            ball = new Ball(new Point(0, 0), new Size(50, 50), 5);
+            ball = new Ball(new Point(0, 0), new Size(50, 50), 2);
             timer = new Timer
             {
-                Interval = 1000 / 60
+                Interval = 1000 / 200
             };
             timer.Tick += Timer_Tick;
             timer.Start();
-            this.KeyDown += Window_KeyDown;
+            KeyDown += Window_KeyDown;
+            wallOpacity = 255;
+            wallTimer = new Timer
+            {
+                Interval = 50
+            };
+            wallTimer.Tick += WallTimer_Tick;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -34,24 +43,36 @@ namespace Don_t_hit_the_corner
                     if (ball.Direction.X < 0)
                     {
                         ball.Direction.X = -ball.Direction.X;
+                        wall = new Rectangle(ball.Position.X - 20, ball.Position.Y - 15, 20, 80);
+                        KeyDown -= Window_KeyDown;
+                        wallTimer.Start();
                     }
                     break;
                 case Keys.Right:
                     if (ball.Direction.X > 0)
                     {
                         ball.Direction.X = -ball.Direction.X;
+                        wall = new Rectangle(ball.Position.X + 50, ball.Position.Y - 15, 20, 80);
+                        KeyDown -= Window_KeyDown;
+                        wallTimer.Start();
                     }
                     break;
                 case Keys.Up:
                     if (ball.Direction.Y < 0)
                     {
                         ball.Direction.Y = -ball.Direction.Y;
+                        wall = new Rectangle(ball.Position.X - 15, ball.Position.Y - 20, 80, 20);
+                        KeyDown -= Window_KeyDown;
+                        wallTimer.Start();
                     }
                     break;
                 case Keys.Down:
                     if (ball.Direction.Y > 0)
                     {
                         ball.Direction.Y = -ball.Direction.Y;
+                        wall = new Rectangle(ball.Position.X - 15, ball.Position.Y + 50, 80, 20);
+                        KeyDown -= Window_KeyDown;
+                        wallTimer.Start();
                     }
                     break;
                 default:
@@ -59,6 +80,17 @@ namespace Don_t_hit_the_corner
             }
         }
 
+        private void WallTimer_Tick(object sender, EventArgs e)
+        {
+            wallOpacity -= 5;
+            if (wallOpacity <= 0)
+            {
+                wall = Rectangle.Empty;
+                wallOpacity = 255;
+                wallTimer.Stop();
+                KeyDown += Window_KeyDown;
+            }
+        }
         private void InitializeBuffer()
         {
             context = BufferedGraphicsManager.Current;
@@ -76,6 +108,11 @@ namespace Don_t_hit_the_corner
         {
             buffer.Graphics.Clear(Color.Black);
             ball.Draw(buffer.Graphics);
+            if (!wall.IsEmpty)
+            {
+                Color wallColor = Color.FromArgb(wallOpacity, Color.White);
+                buffer.Graphics.FillRectangle(new SolidBrush(wallColor), wall); // draw the wall if it exists
+            }
             buffer.Render(Graphics.FromHwnd(Handle));
         }
 

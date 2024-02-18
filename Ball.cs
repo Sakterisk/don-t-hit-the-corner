@@ -16,10 +16,10 @@ namespace Don_t_hit_the_corner
     }
     public class Ball
     {
-        private Point Position;
+        public Point Position { get; set; }
         private readonly Size Size;
         private Brush ForegroundColor;
-        private int Speed { get; set; }
+        public int Speed { get; set; }
         public Direction Direction { get; set; }
 
         public Ball(Point position, Size size, int speed)
@@ -33,8 +33,8 @@ namespace Don_t_hit_the_corner
 
         public void Update()
         {
-            Position = new Point(Position.X + Direction.X * Speed, Position.Y + Direction.Y * Speed);
             CheckCollision();
+            Position = new Point(Position.X + Direction.X * Speed, Position.Y + Direction.Y * Speed);
         }
 
         private void CheckCollision()
